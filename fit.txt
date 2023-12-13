@@ -1,0 +1,237 @@
+FIRST FIT  
+
+#include<stdio.h>
+#include<stdlib.h>
+struct process
+{
+  int pid, size, bno;
+} p[100];
+struct block
+{
+  int bno, size;
+} b[100];
+
+void main ()
+{
+  int np, nb, i, j;
+  printf ("enter the no of process \n");
+  scanf ("%d", &np);
+  printf ("enter the no ofblocks \n");
+  scanf ("%d", &nb);
+  printf ("enter the process id and size  \n");
+  for (i = 0; i < np; i++)
+    {
+      scanf ("%d%d", &p[i].pid, &p[i].size);
+    }
+  printf ("enter the blockid and size  \n");
+  for (i = 0; i < nb; i++)
+    {
+      scanf ("%d%d", &b[i].bno, &b[i].size);
+    }
+  printf ("BEFORE \n\n");
+  printf ("block id\tblocksize\n");
+  for (i = 0; i < nb; i++)
+    {
+      printf ("B%d\t\t%d\n", b[i].bno, b[i].size);
+    }
+  for (i = 0; i < np; i++)
+    {
+     
+      for (j = 0; j < nb; j++)
+	{
+	  if (p[i].size <= b[j].size)
+	    {
+	      p[i].bno = b[j].bno;
+	      b[j].size = b[j].size - p[i].size;
+	    
+	      break;
+	    }
+	}
+    }
+  printf ("processid\tprocesssize\tblockno\n");
+  for (i = 0; i < np; i++)
+    {
+      printf ("P%d\t\t%d\t\t%d\n", p[i].pid, p[i].size, p[i].bno);
+    }
+  printf ("blockid\t\tbsize\n");
+  for (i = 0; i < nb; i++)
+  
+    {
+      printf ("B%d\t\t%d\n", b[i].bno, b[i].size);
+    }
+}
+
+
+
+BEST FIT
+
+#include<stdio.h>
+#include<stdlib.h>
+struct process
+{
+  int pid, size, bno;
+} p[100];
+struct block
+{
+  int bno, size;
+} b[100];
+void
+sort (int nb)
+{
+  int i, j, temp = 0;
+  for (i = 0; i < nb - 1; i++)
+    {
+
+      for (j = 0; j < nb - i - 1; j++)
+	{
+	  if (b[j].size > b[j + 1].size)
+	    {
+	      temp = b[j].size;
+	      b[j].size = b[j + 1].size;
+	      b[j + 1].size = temp;
+
+	      temp = b[j].bno;
+	      b[j].bno = b[j + 1].bno;
+	      b[j + 1].bno = temp;
+
+	    }
+	}
+    }
+}
+
+void
+main ()
+{
+  int np, nb, i, j;
+  printf ("enter the no of process \n");
+  scanf ("%d", &np);
+  printf ("enter the no ofblocks \n");
+  scanf ("%d", &nb);
+  printf ("enter the process id and size  \n");
+  for (i = 0; i < np; i++)
+    {
+      scanf ("%d%d", &p[i].pid, &p[i].size);
+    }
+  printf ("enter the blockid and size  \n");
+  for (i = 0; i < nb; i++)
+    {
+      scanf ("%d%d", &b[i].bno, &b[i].size);
+    }
+  printf ("BEFORE \n\n");
+  printf ("block id\tblocksize\n");
+  for (i = 0; i < nb; i++)
+    {
+      printf ("B%d\t\t%d\n", b[i].bno, b[i].size);
+    }
+  for (i = 0; i < np; i++)
+    {
+      sort (nb);
+      for (j = 0; j < nb; j++)
+	{
+	  if (p[i].size <= b[j].size)
+	    {
+	      p[i].bno = b[j].bno;
+	      b[j].size = b[j].size - p[i].size;
+	      break;
+	    }
+	}
+    }
+  printf ("processid\tprocesssize\tblockno\n");
+  for (i = 0; i < np; i++)
+    {
+      printf ("P%d\t\t%d\t\t%d\n", p[i].pid, p[i].size, p[i].bno);
+    }
+  printf ("blockid\t\tbsize\n");
+  for (i = 0; i < nb; i++)
+    {
+      printf ("B%d\t\t%d\n", b[i].bno, b[i].size);
+    }
+}
+
+WORST FIT
+
+#include<stdio.h>
+#include<stdlib.h>
+struct process
+{
+  int pid, size, bno;
+} p[100];
+struct block
+{
+  int bno, size;
+} b[100];
+void sort (int nb)
+{
+  int i, j, temp = 0;
+  for (i = 0; i < nb - 1; i++)
+    {
+
+      for (j = 0; j < nb - i - 1; j++)
+	{
+	  if (b[j].size < b[j + 1].size)
+	    {
+	      temp = b[j].size;
+	      b[j].size = b[j + 1].size;
+	      b[j + 1].size = temp;
+
+	      temp = b[j].bno;
+	      b[j].bno = b[j + 1].bno;
+	      b[j + 1].bno = temp;
+
+	    }
+	}
+    }
+}
+
+void main ()
+{
+  int np, nb, i, j;
+  printf ("enter the no of process \n");
+  scanf ("%d", &np);
+  printf ("enter the no ofblocks \n");
+  scanf ("%d", &nb);
+  printf ("enter the process id and size  \n");
+  for (i = 0; i < np; i++)
+    {
+      scanf ("%d%d", &p[i].pid, &p[i].size);
+    }
+  printf ("enter the blockid and size  \n");
+  for (i = 0; i < nb; i++)
+    {
+      scanf ("%d%d", &b[i].bno, &b[i].size);
+    }
+  printf ("BEFORE \n\n");
+  printf ("block id\tblocksize\n");
+  for (i = 0; i < nb; i++)
+    {
+      printf ("B%d\t\t%d\n", b[i].bno, b[i].size);
+    }
+  for (i = 0; i < np; i++)
+    {
+      sort (nb);
+      for (j = 0; j < nb; j++)
+	{
+	  if (p[i].size <= b[j].size)
+	    {
+	      p[i].bno = b[j].bno;
+	      b[j].size = b[j].size - p[i].size;
+	    
+	      break;
+	    }
+	}
+    }
+  printf ("processid\tprocesssize\tblockno\n");
+  for (i = 0; i < np; i++)
+    {
+      printf ("P%d\t\t%d\t\t%d\n", p[i].pid, p[i].size, p[i].bno);
+    }
+  printf ("blockid\t\tbsize\n");
+  for (i = 0; i < nb; i++)
+  
+    {
+      printf ("B%d\t\t%d\n", b[i].bno, b[i].size);
+    }
+}
+
+
+

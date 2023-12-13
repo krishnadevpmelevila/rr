@@ -1,0 +1,121 @@
+#include<stdio.h>
+struct rr
+{
+	int pid,bt,wt,tt,rt;
+}a[20];
+struct b
+{
+int pr,t,c;	
+}q[20];
+void main()
+{
+	int n,i,j,qt,temp,count,r=0,ct=0;
+	float w=0,t=0,avgtt,avgwt;
+	printf("no of p \n");
+	scanf("%d",&n);
+	for(i=1;i<=n;i++)
+	{
+		printf("pid bt \n");
+		scanf("%d%d",&a[i].pid,&a[i].bt);
+		a[i].rt=a[i].bt;
+	}
+	printf("qntum \n");
+	scanf("%d",&qt);
+	while(1)
+	{
+	for(i=1,count=0;i<=n;i++)
+	{
+		temp=qt;
+	if(a[i].rt==0)
+	{
+		count++;
+		continue;
+		
+		
+		}
+		if(a[i].rt>qt)
+		{
+			a[i].rt=a[i].rt-qt;
+		}
+		else
+		
+		if(a[i].rt>=0)
+		{
+			temp=a[i].rt;
+			a[i].rt=0;
+		}
+		ct=ct+temp;
+		a[i].tt=ct;
+		   r++;
+		   q[r].pr=a[i].pid;
+		   q[r].t=ct;
+		   q[r].c=temp;
+		   	
+		}
+		if(n==count)
+		  break;	
+	}
+	for(i=1;i<=n;i++)
+	{
+	a[i].wt=a[i].tt-a[i].bt;	
+	}
+	for(i=1;i<=n;i++)
+	{
+	w=w+a[i].wt;
+	t=t+a[i].tt;	
+	}
+	printf("\n pid\t\tbt\t\twt\t\ttt\n");
+	{
+		printf("%d\t\t%d\t\t%d\t\t%d\n",a[i].pid,a[i].bt,a[i].wt,a[i].tt);
+	}
+	avgwt=(double)w/n;
+	avgtt=(double)t/n;
+	printf("avg wt =%f\n",avgwt);
+	printf("avg tt =%f\n",avgtt);
+	printf(" ");
+for(i=1;i<=r;i++)
+{
+    for(j=0;j<q[i].c;j++)
+    printf("--");
+    printf(" ");
+    
+}
+printf("\n");
+
+for(i=1;i<=r;i++)
+{
+    for(j=0;j<(q[i].c-1);j++)
+    printf(" ");
+    printf("P%d",q[i].pr);
+    for(j=0;j<(q[i].c-1);j++)
+    printf(" ");
+    printf("|");
+    
+}
+printf("\n");
+
+
+printf(" ");
+for(i=1;i<=r;i++)
+{
+    for(j=0;j<q[i].c;j++)
+    printf("--");
+    printf(" ");
+    
+}
+printf("\n");
+printf("0");
+for(i=1;i<=r;i++)
+{
+    for(j=0;j<q[i].c;j++)
+   printf(" ");
+   if(q[i].t>9)
+   printf("\b");
+   printf("%d",q[i].t);
+    
+}
+printf("\n");
+
+
+	
+}
